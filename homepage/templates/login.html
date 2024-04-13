@@ -1,0 +1,106 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">    
+
+    <title>IMS - Login</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: Arial, sans-serif;
+        }
+
+        .logo {
+            color: #007bff; /* Blue color for logo */
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: #fff; /* White background for form */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            color: #333; /* Dark gray for form headings */
+            margin-bottom: 20px;
+        }
+
+        .btn-login {
+            background-color: #007bff; /* Blue color for login button */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Gray color for secondary button */
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+            border-color: #545b62;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="text-center logo">Inventory Management System</div>
+
+                <div class="form-container">
+                    {% if user.is_authenticated %}
+                        <h2>Welcome, {{ request.user.username }}!</h2>
+                        <div class="text-center">
+                            <a href="{% url 'home' %}" class="btn btn-primary">Go back home</a>
+                            <a href="{% url 'logout' %}" class="btn btn-secondary ml-3">Log Out</a>
+                        </div>
+                    {% else %}
+                        <h2>Please Log In</h2>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-login mt-3">Log In</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
